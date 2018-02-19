@@ -49,7 +49,7 @@ public class WelcomeController {
             return ResponseEntity.badRequest().body(bindingResult.hasErrors());
         }
 
-        return return ResponseEntity.ok("Employee Success");
+        return ResponseEntity.ok("Employee Success");
     }
 
 }
