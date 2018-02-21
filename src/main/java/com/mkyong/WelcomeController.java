@@ -1,6 +1,8 @@
 package com.mkyong;
 
 import com.mkyong.builder.Builder;
+import com.mkyong.builder.configuration.CartConfigBuilder;
+import com.mkyong.data.CommonPOJO;
 import com.mkyong.data.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,16 @@ public class WelcomeController {
 
         String appProperties = app.toString();
          builder.build(null);
+
+        CartConfigBuilder cartConfigBuilder = new CartConfigBuilder();
+        CommonPOJO commonPOJO = new CommonPOJO();
+        cartConfigBuilder.build1234(mybuilder->{
+            // Build
+            mybuilder.build(commonPOJO);
+            //Validate Builder
+            final boolean validate = builder.validate();
+        });
+
          logger.debug("Welcome {}, {}", app);
          return "welcome";
     }

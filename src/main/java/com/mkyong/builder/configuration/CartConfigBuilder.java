@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Created by D-QU92GL on 19/02/2018.
@@ -59,6 +60,14 @@ public class CartConfigBuilder extends ConfigBuilder{
     }
 
 
+    public void build1234(Consumer<Builder> action){
+        //Prepare List of Builders
+        getBuilders(builders)
+                //Call Build on each Builder
+                .forEach(builder->{
+                    action.accept(builder);
+                });
+    }
 
     public List<String> getBuilders() {
         return builders;
