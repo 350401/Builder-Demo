@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  */
 public interface Builder {
 
-    Object build(Object request);
+    void build(Object request);
     default boolean validate() throws ValidationException {
         return true;
     }

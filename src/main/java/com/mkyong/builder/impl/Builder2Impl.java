@@ -16,11 +16,11 @@ public class Builder2Impl implements Builder {
     private static final Logger logger = LoggerFactory.getLogger(Builder2Impl.class);
 
     @Override
-    public Object build(Object request) {
+    public void build(Object request) {
         CommonPOJO commonPOJO = (CommonPOJO)request;
-        commonPOJO.setService2Data(" Set Response Recived from Price Micro Service");
+        commonPOJO.setService2Data("PriceServiceData");
         logger.debug("inside Builder1Imp2 build method ");
-        return commonPOJO;
+        //return commonPOJO;
     }
 
     @Override

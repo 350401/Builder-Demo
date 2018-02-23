@@ -14,11 +14,10 @@ import org.springframework.stereotype.Component;
 public class Builder1Impl implements Builder{
     private static final Logger logger = LoggerFactory.getLogger(Builder1Impl.class);
     @Override
-    public Object build(Object request) {
+    public void build(Object request) {
         CommonPOJO commonPOJO = (CommonPOJO)request;
-        commonPOJO.setService1Data(" Set Response Recived from Offer Micro Service");
+        commonPOJO.setService1Data("OfferServiceData");
         logger.debug("inside Builder1Impl build method ");
-        return commonPOJO;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.mkyong.builder.configuration;
 import com.mkyong.builder.Builder;
 import com.mkyong.data.CommonPOJO;
 import com.mkyong.exceptions.BuilderCreationException;
+import com.mkyong.exceptions.BuilderProcessException;
 import com.mkyong.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ import java.util.function.Consumer;
 @Component("CartConfigBuilder")
 @PropertySource("classpath:cartconfig.properties")
 @ConfigurationProperties()
-public class CartConfigBuilder extends ConfigBuilder{
+public class CartConfigBuilder implements Builder{
 
     private static final Logger logger = LoggerFactory.getLogger(CartConfigBuilder.class);
 
@@ -31,47 +32,41 @@ public class CartConfigBuilder extends ConfigBuilder{
     private List<String> builders ;
 
     @Autowired
-    private ApplicationContext applicationContext;
+    private ConfigBuilder configBuilder;
 
     @Override
-    public Object build(Object request) {
+    public void build(Object request) {
         logger.debug("inside CartConfigBuilder build method ");
-        logger.debug("Builders : "+ builders.toString());
-        CommonPOJO commonPOJO = new CommonPOJO();
         try {
             //Prepare List of Builders
-            getBuilders(builders)
+            configBuilder.getBuilders(builders)
             //Call Build on each Builder
            .forEach(builder->{
                 // Build
-                builder.build(commonPOJO);
+                builder.build(request);
                 //Validate Builder
                 final boolean validate = builder.validate();
             });
 
-            logger.debug("commonPOJO : "+ commonPOJO);
+            logger.debug("request : "+ request);
 
         } catch (ValidationException | BuilderCreationException e) {
+           // e.printStackTrace();
+            throw new BuilderProcessException(e.getMessage());
+        }/*catch (RuntimeException e){
             e.printStackTrace();
-        }catch (RuntimeException e){
-            e.printStackTrace();
-        }
-        return commonPOJO;
-    }
-
+        }*/
+     }
+/*
 
     public void build1234(Consumer<Builder> action){
         //Prepare List of Builders
-        getBuilders(builders)
+        configBuilder.getBuilders(builders)
                 //Call Build on each Builder
                 .forEach(builder->{
                     action.accept(builder);
                 });
-    }
-
-    public List<String> getBuilders() {
-        return builders;
-    }
+    }*/
 
     public void setBuilders(List<String> builders) {
         this.builders = builders;

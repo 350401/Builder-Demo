@@ -43,13 +43,13 @@ public class WelcomeController {
 
         CartConfigBuilder cartConfigBuilder = new CartConfigBuilder();
         CommonPOJO commonPOJO = new CommonPOJO();
-        cartConfigBuilder.build1234(mybuilder->{
+/*        cartConfigBuilder.build1234(mybuilder->{
             // Build
             mybuilder.build(commonPOJO);
             //Validate Builder
             final boolean validate = builder.validate();
-        });
-
+        });*/
+         cartConfigBuilder.build(commonPOJO);
          logger.debug("Welcome {}, {}", app);
          return "welcome";
     }

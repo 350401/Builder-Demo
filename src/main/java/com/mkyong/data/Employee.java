@@ -16,6 +16,12 @@ public class Employee {
     @Min(18)
     private Integer age;
 
+    public Employee(){};
+    public Employee(String name, int age){
+        this.name = name;
+        this.age = age;
+    }
+
     public String getName() {
         return this.name;
     }
