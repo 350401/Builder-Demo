@@ -20,7 +20,7 @@ public class ConfigBuilder {
 
     public Builder getBuilder(String builderClass) throws BuilderCreationException {
         try {
-            return (Builder) applicationContext.getBean(Class.forName(builderClass));
+            return (Builder) applicationContext.getBean(builderClass);
         } catch (Exception e) {
             //e.printStackTrace();
             throw new BuilderCreationException(e.getMessage());
