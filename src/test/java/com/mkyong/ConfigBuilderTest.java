@@ -39,30 +39,30 @@ public class ConfigBuilderTest {
     @Before
     public void setup(){
         strBuilders = new ArrayList<>();
-        strBuilders.add("com.mkyong.builder.impl.Builder1Impl");
-        strBuilders.add("com.mkyong.builder.impl.Builder2Impl");
+        strBuilders.add("Builder1Impl");
+        strBuilders.add("Builder2Impl");
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void getBuilders_Test() {
-        Mockito.when(applicationContext.getBean(Builder1Impl.class))
+        Mockito.when(applicationContext.getBean(strBuilders.get(0)))
                 .thenReturn(new Builder1Impl());
-        Mockito.when(applicationContext.getBean(Builder2Impl.class))
+        Mockito.when(applicationContext.getBean(strBuilders.get(1)))
                 .thenReturn(new Builder2Impl());
         assertEquals(configBuilder.getBuilders(strBuilders).size(),2);
     }
 
     @Test
     public void getBuilder_Test() {
-        Mockito.when(applicationContext.getBean(Builder1Impl.class))
+        Mockito.when(applicationContext.getBean(strBuilders.get(0)))
                 .thenReturn(new Builder1Impl());
         assertNotNull(configBuilder.getBuilder(strBuilders.get(0)));
     }
 
     @Test(expected = BuilderCreationException.class)
     public void Buildprocess_BuilderCreationException() throws ClassNotFoundException{
-        Mockito.when(applicationContext.getBean(Class.forName(strBuilders.get(0))))
+        Mockito.when(applicationContext.getBean(strBuilders.get(0)))
                 .thenThrow(new NoSuchBeanDefinitionException("Invalid Bean Class Found"));
         configBuilder.getBuilder(strBuilders.get(0));
     }
